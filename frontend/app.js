@@ -21,8 +21,7 @@ async function fetchExpenses() {
   }
 }
 
-// Add new expense
-export async function addExpense(event) {
+async function addExpense(event) {
   event.preventDefault()
 
   const title = document.getElementById('title').value
@@ -33,14 +32,14 @@ export async function addExpense(event) {
     const response = await fetch('http://localhost:5000/api/expenses', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({title, amount, category})
+      body: JSON.stringify({title, amount, category}),
     })
 
     if (response.ok) {
       expenseForm.reset()
-      await fetchExpenses()  // Refresh the expenses list
+      await fetchExpenses()
     } else {
       alert('Failed to add expense. Please try again.')
     }
@@ -51,5 +50,4 @@ export async function addExpense(event) {
 
 expenseForm.addEventListener('submit', addExpense)
 
-// Fetch expenses when the page loads
 await fetchExpenses()
