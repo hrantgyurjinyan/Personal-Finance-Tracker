@@ -1,20 +1,24 @@
 import express from 'express'
 import cors from 'cors'
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
-
+import authMiddleware from './middleware/authMiddleware.js'
 import expenseRoutes from './routes/expenseRoutes.js'
-import { signUp, login } from './controllers/authController.js'
+import {login, signUp} from './controllers/authController.js'
+import { refreshToken } from './controllers/authController.js';
 
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
 app.use(express.json())
-app.use('/api/expenses', expenseRoutes)
+app.post('/signup', signUp)
+app.post('/login', login)
+app.post('/refresh-token', refreshToken);
 
-app.post('/signup', signUp);
-app.post('/login', login);
+
+app.use('/api/expenses', authMiddleware, expenseRoutes)
+
 
 const PORT = 5000
 app.listen(PORT, () => {

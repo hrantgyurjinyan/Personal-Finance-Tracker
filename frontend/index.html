@@ -10,8 +10,29 @@
 <div class="container">
     <h1>Personal Finance Tracker</h1>
 
-    <!-- Form to Add Expenses -->
-    <div class="form-section">
+    <!-- Signup Form -->
+    <div id="signupSection" class="form-section">
+        <h2>Signup</h2>
+        <form id="signupForm">
+            <input type="text" id="signupUsername" placeholder="Username" required>
+            <input type="email" id="signupEmail" placeholder="Email" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <!-- Login Form -->
+    <div id="loginSection" class="form-section" style="display: none;">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+
+    <!-- Form to Add Expenses (visible after login) -->
+    <div id="expenseSection" class="form-section" style="display: none;">
         <h2>Add Expense</h2>
         <form id="expenseForm">
             <input type="text" id="title" placeholder="Expense Title" required>
@@ -21,20 +42,19 @@
         </form>
     </div>
 
-    <!-- List of Expenses -->
-    <div class="expenses-section">
+    <!-- List of Expenses (visible after login) -->
+    <div id="expenseListSection" class="expenses-section" style="display: none;">
         <h2>Your Expenses</h2>
         <ul id="expenseList"></ul>
     </div>
 
-    <div class="report-section">
+    <!-- Monthly Report (visible after login) -->
+    <div id="reportSection" class="report-section" style="display: none;">
         <h2>Monthly Report</h2>
         <ul id="reportList"></ul>
     </div>
 </div>
 
-
 <script type="module" src="app.js"></script>
 </body>
 </html>
-
