@@ -5,13 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Finance Tracker</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Added spacing between buttons */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Spacing between buttons */
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <h1>Personal Finance Tracker</h1>
 
+    <!-- Welcome Section -->
+    <div id="welcomeSection" class="form-section">
+        <h2>Welcome</h2>
+        <div class="button-container">
+            <button id="showLogin">Login</button>
+            <button id="showSignup">Sign Up</button>
+        </div>
+    </div>
+
     <!-- Signup Form -->
-    <div id="signupSection" class="form-section">
+    <div id="signupSection" class="form-section" style="display: none;">
         <h2>Signup</h2>
         <form id="signupForm">
             <input type="text" id="signupUsername" placeholder="Username" required>
@@ -19,6 +43,7 @@
             <input type="password" id="signupPassword" placeholder="Password" required>
             <button type="submit">Sign Up</button>
         </form>
+        <button id="backToWelcome1">Back</button>
     </div>
 
     <!-- Login Form -->
@@ -29,9 +54,10 @@
             <input type="password" id="loginPassword" placeholder="Password" required>
             <button type="submit">Log In</button>
         </form>
+        <button id="backToWelcome2">Back</button>
     </div>
 
-    <!-- Form to Add Expenses (visible after login) -->
+    <!-- Form to Add Expenses -->
     <div id="expenseSection" class="form-section" style="display: none;">
         <h2>Add Expense</h2>
         <form id="expenseForm">
@@ -41,20 +67,50 @@
             <button type="submit">Add Expense</button>
         </form>
     </div>
-
-    <!-- List of Expenses (visible after login) -->
-    <div id="expenseListSection" class="expenses-section" style="display: none;">
-        <h2>Your Expenses</h2>
-        <ul id="expenseList"></ul>
-    </div>
-
-    <!-- Monthly Report (visible after login) -->
-    <div id="reportSection" class="report-section" style="display: none;">
-        <h2>Monthly Report</h2>
-        <ul id="reportList"></ul>
-    </div>
 </div>
 
-<script type="module" src="app.js"></script>
+<script>
+  // Function to show the desired section
+  function showSection(sectionId) {
+    document.querySelectorAll('.form-section').forEach(section => {
+      section.style.display = 'none';
+    });
+
+    document.getElementById(sectionId).style.display = 'block';
+    localStorage.setItem('currentSection', sectionId);
+  }
+
+  document.getElementById('showLogin').addEventListener('click', () => showSection('loginSection'));
+  document.getElementById('showSignup').addEventListener('click', () => showSection('signupSection'));
+  document.getElementById('backToWelcome1').addEventListener('click', () => showSection('welcomeSection'));
+  document.getElementById('backToWelcome2').addEventListener('click', () => showSection('welcomeSection'));
+
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Login Successful!');
+    showSection('expenseSection');
+  });
+
+  document.getElementById('signupForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Signup Successful!');
+    showSection('expenseSection');
+  });
+
+  document.getElementById('expenseForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('title').value;
+    const amount = document.getElementById('amount').value;
+    const category = document.getElementById('category').value;
+
+    alert(`Expense Added:\nTitle: ${title}\nAmount: ${amount}\nCategory: ${category}`);
+    document.getElementById('expenseForm').reset();
+  });
+
+  window.addEventListener('load', () => {
+    const currentSection = localStorage.getItem('currentSection') || 'welcomeSection';
+    showSection(currentSection);
+  });
+</script>
 </body>
 </html>
