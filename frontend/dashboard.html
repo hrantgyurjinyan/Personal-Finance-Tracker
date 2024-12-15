@@ -1,40 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-        <html lang="en">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dashboard - Personal Finance Tracker</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="container">
-    <h1>Your Expenses and Monthly Report</h1>
+<!-- dashboard.html -->
+<button id="addExpenseButton">Add Expense</button>
+<button id="viewReportButton">View Monthly Report</button>
 
-    <div class="form-section">
-        <h2>Add Expense</h2>
-        <form id="expenseForm">
-            <input type="text" id="title" placeholder="Expense Title" required>
-            <input type="number" id="amount" placeholder="Amount" required>
-            <input type="text" id="category" placeholder="Category" required>
-            <button type="submit">Add Expense</button>
-        </form>
-    </div>
+<script>
+  document.getElementById('addExpenseButton').addEventListener('click', () => {
+    window.location.href = 'addExpense.html';  // Navigate to the page where expenses can be added
+  });
 
-    <div class="expenses-section">
-        <h2>Your Expenses</h2>
-        <ul id="expenseList"></ul>
-    </div>
-
-    <div class="report-section">
-        <h2>Monthly Report</h2>
-        <ul id="reportList"></ul>
-    </div>
-</div>
-
-<script type="module" src="app.js"></script>
-</body>
-</html>
+  document.getElementById('viewReportButton').addEventListener('click', () => {
+    window.location.href = 'viewReport.html';  // Navigate to the page to view the monthly report
+  });
+</script>

@@ -45,15 +45,11 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   if (response.ok) {
     localStorage.setItem('token', result.accessToken)
     localStorage.setItem('refreshToken', result.refreshToken)
+
     alert('Login successful!')
 
-    document.getElementById('loginSection').style.display = 'none'
-    document.getElementById('expenseSection').style.display = 'block'
-    document.getElementById('expenseListSection').style.display = 'block'
-    document.getElementById('reportSection').style.display = 'block'
+    window.location.href = 'dashboard.html'  // Redirect to the dashboard after successful login
 
-    await fetchExpenses()
-    await fetchMonthlyReport()
   } else {
     alert(result.message)
   }
@@ -101,13 +97,7 @@ async function fetchExpenses() {
     console.log('Response body:', JSON.stringify(respond))
 
     if (!response.ok && response.status === 401) {
-      newToken = await refreshAccessToken() // Refresh token
-      return fetchExpenses() // Retry fetching expenses with new token
-
-      /*console.log('FAIL TOKEN: ', token)
-      const responseBody = await response.json() // Capture the full response body
-      console.log('FAIL RESPONSE BODY: ', responseBody) // Log the detailed response body
-      console.log('FAIL RESPONSE STATUS: ', responseBody.status) // Check the status code (401, 403, etc.)*/
+      return fetchExpenses()
     }
 
 
